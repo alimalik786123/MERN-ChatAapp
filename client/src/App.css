@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+.App{
+  min-height: 100vh;
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://img.freepik.com/free-vector/blue-curve-background_53876-113112.jpg?size=626&ext=jpg');
+}
