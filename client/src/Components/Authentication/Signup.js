@@ -26,7 +26,7 @@ const Signup = () => {
             <FormLabel> Name </FormLabel>
                 <Input
                  placeholder='Enter Name'
-                 onChange={handledata}
+                 onChange={(e)=>setname(e.target.value)}
                  marginBottom='15px'
                  isRequired
                 ></Input>
@@ -35,7 +35,7 @@ const Signup = () => {
             <FormLabel> Email </FormLabel>
                 <Input
                  placeholder='Enter Email'
-                 onChange={handledata}
+                 onChange={(e)=>setemail(e.target.value)}
                  marginBottom='15px'
                  isRequired
                  type={'email'}
@@ -48,7 +48,7 @@ const Signup = () => {
 
                 <Input
                  placeholder='Enter Password'
-                 onChange={handledata}
+                 onChange={(e)=>setpassword(e.target.value)}
                  marginBottom='15px'
                  isRequired
                  type={show?'text':'password'}
@@ -66,7 +66,7 @@ const Signup = () => {
             <InputGroup>
                 <Input
                  placeholder='Confirm Password'
-                 onChange={handledata}
+                 onChange={(e)=>setcnfpassword(e.target.value)}
                  marginBottom='15px'
                  isRequired
                  type={show?'text':'password'}
@@ -82,7 +82,7 @@ const Signup = () => {
             <FormLabel> Add your pic </FormLabel>
                 <Input
                  placeholder='Enter Email'
-                 onChange={handledata}
+                 onChange={(e)=>setemail(e.target.value)}
                  marginBottom='15px'
                  p={'1.5'}
                  type={'file'}
