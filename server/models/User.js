@@ -4,13 +4,13 @@ const usermodel=mongoose.Schema({
         type:String,required:true
     },
     email:{
-        type:String,required:true
+        type:String,required:true,unique:true
     },
     password:{
         type:String,required:true
     },
     img:{
-        type:String,required:true,
+        type:String,
         default:"https://cdn141.picsart.com/357697367045201.jpg"
     },
 },{timestamps:true})
