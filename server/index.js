@@ -5,5 +5,7 @@ const mongo=require('./database/db')
 userRoutes=require('./Routes/userRoutes')
 
 mongo()
-app.use('/user',userRoutes)
+// app.use(express.json)
+app.use('/',userRoutes)
+
 app.listen(5000,console.log("server running")) 
