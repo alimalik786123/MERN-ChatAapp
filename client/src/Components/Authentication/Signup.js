@@ -1,13 +1,14 @@
 import React from 'react'
 import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useState } from 'react' 
 const Signup = () => {
     const [show,setshow]=useState(false)
     const [name,setname]=useState('')
     const [email,setemail]=useState('')
     const [password,setpassword]=useState('')
     const [cnfpassword,setcnfpassword]=useState('')
-    const [pic,setdpic]=useState('')
+    const [pic,setpic]=useState('')
+    const [loading, setloading] = useState('')
 
     const invert=()=>{
         setshow(!show)
@@ -16,8 +17,17 @@ const Signup = () => {
         setshow(!show)
     }
 
-    const handledata=(e)=>{
-        setname(e.target.value)
+    const setpics=(pic)=>{
+      if(pic===undefined){
+        alert("please upload an image")
+      }
+      else if(pic.type==='image/jpeg' || pic.type==='image/jpg' || pic.type==='image/png'){
+        setpic(pic.target.value)
+      }
+      else{
+        alert("invalid type")
+      }
+        
         console.log(name);
     }
   return (
@@ -81,8 +91,8 @@ const Signup = () => {
           <FormControl>
             <FormLabel> Add your pic </FormLabel>
                 <Input
-                 placeholder='Enter Email'
-                 onChange={(e)=>setemail(e.target.value)}
+                 placeholder='Add pic'
+                 onChange={(e)=>setpics(e.target.files[0])}
                  marginBottom='15px'
                  p={'1.5'}
                  type={'file'}

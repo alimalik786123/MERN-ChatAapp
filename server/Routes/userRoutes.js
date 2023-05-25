@@ -65,7 +65,12 @@ router.post("/user",jsonParser, async (req, res) => {
 router.post("/login",jsonParser,async(req,res)=>{
     const user=await User.findOne({"email":req.body.email}) 
     if(user){
-        res.status(201).json({message:"found"}) 
+        res.status(201).json({
+            name:user.name,
+            email:user.email, 
+            pic:user.pic,
+            token:generateToken(user._id)
+        }) 
     }
     else{
         res.status(404).json({message:"user not found"})
