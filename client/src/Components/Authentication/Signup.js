@@ -73,7 +73,7 @@ const Signup = () => {
     const submit=async()=>{
       setloading(true)
       if(!name || !email || !password || !cnfpassword || !pic){
-        toast({
+        toast({ 
           title: "Please enter all the field",
           status: "warning",
           duration: 5000,
