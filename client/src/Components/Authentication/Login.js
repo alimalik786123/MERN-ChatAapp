@@ -1,12 +1,13 @@
 import React from 'react'
-import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack,useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 const Login = () => {
     const [show,setshow]=useState(false)
    
     const [email,setemail]=useState('')
     const [password,setpassword]=useState('')
-   
+    const [loading,setloading]=useState('')
+    const toast=useToast()
 
     const invert=()=>{
         setshow(!show)
@@ -14,8 +15,34 @@ const Login = () => {
     const invert1=()=>{
         setshow(!show)
     }
-    const handlesubmit=async()=>{
-      //  await axios("/")
+    const submit=async()=>{
+      setloading(true)
+      if(!email || !password){
+        toast({ 
+          title: "Please enter all the field",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+        // alert("failed")
+        setloading(false)
+        return
+      }
+      else{
+        if(password){
+          toast({
+            title: "Password do not matched",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
+          setloading(false)
+          return
+        }
+        alert("done")
+      }
     }
   return (
     <VStack spacing='5px'>
