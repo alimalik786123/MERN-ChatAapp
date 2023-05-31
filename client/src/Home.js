@@ -29,7 +29,7 @@ export default function Home() {
        <Tabs position="relative" isFitted variant="unstyled">
     <TabList>
       <Tab  _selected={{ color: 'Black', bg: 'blue.100' }}>Login</Tab>
-      <Tab  _selected={{ color: 'Black', bg: 'blue.100' }}>Signup</Tab>
+      <Tab  _selected={{ color: 'Black', bg: 'blue.100' }}>Signu</Tab>
     </TabList>
     <TabIndicator
       mt="-1.5px"
