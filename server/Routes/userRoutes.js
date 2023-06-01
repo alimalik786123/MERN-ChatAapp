@@ -76,5 +76,8 @@ router.post("/login",jsonParser,async(req,res)=>{
         res.status(404).json({message:"user not found"})
     }
 })
+router.post("/search",jsonParser,async(req,res)=>{
+    
+})
 
 module.exports=router
