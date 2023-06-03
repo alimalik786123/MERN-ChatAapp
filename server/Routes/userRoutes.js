@@ -5,6 +5,7 @@ var jsonParser = bodyParser.json()
 const jwt=require("jsonwebtoken")
 const secret="mynameisalimalikmynameisalimalik"
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+const Chat=require("../models/Chatmodel")
 const User=require("../models/User")
 const generateToken=require("./generateToken")
 const { findOne } = require('../models/User')
@@ -87,6 +88,33 @@ router.post("/search",jsonParser,async(req,res)=>{
     const users=await User.find(keyword).find({_id:{$ne:req.body._id}})
     res.send(users)
     console.log(keyword);
+})
+
+router.post("/fetchChat",jsonParser,async(req,res)=>{
+     const {userid}=req.body 
+     const chat=await Chat.find({
+        GroupChat:false,
+        $and:[
+            {users:{$elemmatch:{$eq:userid}}},
+            {users:{$elemmatch:{$eq:req.user._id}}}
+        ]
+     })
+}).populate("users","-password")
+
+router.post("/group",jsonParser,async(req,res)=>{
+    
+})
+
+router.post("/rename",jsonParser,async(req,res)=>{
+    
+})
+
+router.post("/groupremove",jsonParser,async(req,res)=>{
+    
+})
+
+router.post("/groupadd",jsonParser,async(req,res)=>{
+    
 })
 
 module.exports=router
