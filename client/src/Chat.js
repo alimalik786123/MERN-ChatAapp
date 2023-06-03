@@ -13,6 +13,6 @@ export const Chat = () => {
    fetchChat()
     },[])
   return (
-    <div>Chat page for </div>
+    <div>Chat page for every one</div>
   )
 }
