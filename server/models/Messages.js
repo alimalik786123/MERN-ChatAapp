@@ -5,7 +5,7 @@ const MessageModel=mongoose.Schema({
     },
     content:{type:String,trim:true},
     chat:{
-        type:mongoose.Schema.Types.ObjectId,ref:"Chat",
+        type:mongoose.Schema.Types.ObjectId,ref:"Chat", 
     }
 },
 {

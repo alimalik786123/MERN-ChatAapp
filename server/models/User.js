@@ -4,7 +4,7 @@ const usermodel=mongoose.Schema({
         type:String
     },
     email:{
-        type:String,required:true
+        type:String,required:true 
     },
     password:{
         type:String,required:true

@@ -91,12 +91,13 @@ router.post("/search",jsonParser,async(req,res)=>{
 })
 
 router.post("/fetchChat",jsonParser,async(req,res)=>{
-     const {userid}=req.body 
+     const curruser=req.body.curruser 
+     const userid=req.body.userid
      const chat=await Chat.find({
         GroupChat:false,
         $and:[
             {users:{$elemmatch:{$eq:userid}}},
-            {users:{$elemmatch:{$eq:req.user._id}}}
+            {users:{$elemmatch:{$eq:curruser}}}
         ]
      })
 }).populate("users","-password")
