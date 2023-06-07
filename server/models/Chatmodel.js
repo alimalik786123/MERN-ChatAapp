@@ -15,6 +15,9 @@ const chatModel=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }}],
+    content:{
+        type:string
+    }
     // groupAdmin:{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:"User"
