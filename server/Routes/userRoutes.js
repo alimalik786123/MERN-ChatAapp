@@ -99,8 +99,8 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
             {users:{$elemmatch:{$eq:userid}}},
             {users:{$elemmatch:{$eq:curruser}}}
         ]
-     })
-}).populate("users","-password")
+     }).populate("users","-password")
+})
 
 router.post("/group",jsonParser,async(req,res)=>{
     
