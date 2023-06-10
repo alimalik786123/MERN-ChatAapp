@@ -21,7 +21,9 @@ export const Chat = () => {
      </VStack>
     </div>
     <div className="right">
-      <h1>hellodwefs</h1>
+      <div className="profile">
+        <h1>profile here</h1>
+      </div>
       <div className="message">
         <p>hello</p>
       </div>
