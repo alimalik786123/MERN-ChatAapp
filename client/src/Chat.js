@@ -1,7 +1,8 @@
-import { LineAxisOutlined } from '@mui/icons-material'
+
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import {VStack,Input,Button} from '@chakra-ui/react'
 
 export const Chat = () => {
    const [chats,setchats]=useState([])
@@ -9,10 +10,35 @@ export const Chat = () => {
       const data=await axios.get("/hello")
       console.log(data);
     }
-    useEffect(()=>{
-   fetchChat()
-    },[])
+  //   useEffect(()=>{
+  //  fetchChat()
+  //   },[])
   return (
-    <div>Chat page for every one</div>
+    <>
+    <div className="left">
+     <VStack>
+      
+     </VStack>
+    </div>
+    <div className="right">
+      <h1>hellodwefs</h1>
+      <div className="message">
+        <p>hello</p>
+      </div>
+      <div className='ip'>
+      <Input placeholder='Say hii...' >
+
+        
+      </Input>
+      <Button
+      marginLeft={'10px'}
+      >hel</Button>
+      <Button
+      marginLeft={'10px'}
+      >hel</Button>
+
+      </div>
+    </div>
+    </>
   )
 }
