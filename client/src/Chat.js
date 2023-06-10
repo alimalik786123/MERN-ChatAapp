@@ -2,7 +2,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
-import {VStack,Input,Button} from '@chakra-ui/react'
+import {VStack,Input,Button,InputGroup,InputLeftElement,InputRightElement} from '@chakra-ui/react'
+import {PhoneIcon,Search2Icon} from '@chakra-ui/icons'
 
 export const Chat = () => {
    const [chats,setchats]=useState([])
@@ -17,7 +18,19 @@ export const Chat = () => {
     <>
     <div className="left">
      <VStack>
-      
+     <InputGroup margin={'5px'}
+     width='300px'
+     >
+    
+    <Input type='tel' placeholder='Search user'
+    backgroundColor={'white'}
+    />
+    <InputRightElement>
+    <Button backgroundColor={'white'}>
+      <Search2Icon color={'black'}/>
+    </Button>
+    </InputRightElement>
+  </InputGroup>
      </VStack>
     </div>
     <div className="right">
@@ -25,7 +38,9 @@ export const Chat = () => {
         <h1>profile here</h1>
       </div>
       <div className="message">
-        <p>hello</p>
+       <div className="content">helloosdjvjksndjkva</div>
+       <div className="content">helloosdjvjksndjkvafgnwhwthntyetmeyjmeyjmyumeymueyumdtmetmetymetmetyjetetyjetynetynnsfgnwty</div>
+       <div className="content2"><div className="content3"></div><div className="content3"><div className="con">jdbwegdvsdv</div></div></div>
       </div>
       <div className='ip'>
       <Input placeholder='Say hii...' >

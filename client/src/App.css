@@ -21,9 +21,10 @@
   width: 400px;
   margin: 0.5rem;
   border-radius: 20px;
-  
+  padding: 8px;
   background: rgb(133,228,255);
-background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(236,236,236,1) 48%, rgba(209,209,209,1) 100%);
+/* background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(236,236,236,1) 48%, rgba(209,209,209,1) 100%); */
+background-color:rgba(209,209,209,1) ;
   box-shadow: 20p;
 }
 .ip{
@@ -39,19 +40,63 @@ background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(236,236,236,1) 48
 }
 .message{
   position: relative;
-  background-color: aqua;
+  background-color: rgb(251, 255, 255);
   height: 80%;
   margin-bottom: 0.5rem;
   margin-top: -30px;
   top: 5%;
   overflow-y: auto;
   border-radius: 20px;
-  
+  padding: 1rem;
   box-shadow: inset 0 0 10px #5f5e5d;
 }
 .profile{
   height: 50px;
   background-color: #5f5e5d;
 }
+.content{
+ max-width: 200px;
+  background-color: rgb(9, 185, 255);
+  text-decoration: solid;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 4px;
+}
+.content2{
+  
+  
+  background-color: rgb(251, 253, 253);
+  text-decoration: solid;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  left: 75%;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 4px;
+  display: flex;
+  width: 100%;
+}
+.con{
+  position: relative;
+  max-width: 50%;
+  background-color: rgb(251, 253, 253);
+  text-decoration: solid;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  left: 75%;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 4px; 
+}
+
+.content3{
+  width: 33%;
+   background-color: rgb(9, 185, 255);
+   text-decoration: solid;
+   border-radius: 20px;
+   
+ }
 
   
