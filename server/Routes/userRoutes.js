@@ -46,7 +46,8 @@ router.post("/user",jsonParser, async (req, res) => {
            const user= await User.create({ 
                 name: req.body.name,       
                 email: req.body.email,
-                password:req.body.password
+                password:req.body.password,
+                img:req.body.pic
  
 
 
@@ -55,7 +56,7 @@ router.post("/user",jsonParser, async (req, res) => {
                 _id:user._id,
                 name:user.name,
                 email:user.email, 
-                pic:user.pic,
+                pic:user.img,
                 token:generateToken(user._id)
             }) 
             

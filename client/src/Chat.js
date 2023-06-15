@@ -34,7 +34,7 @@ export const Chat = () => {
       <div className="side">
         <div className="drawer">
         <Button ref={btnRef} colorScheme='teal' onClick={onOpen} marginTop="5px" left={'-5%'} width='30px' borderRadius='80px' >
-        <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+        <Avatar name='Dan Abrahmov' src='http://res.cloudinary.com/mailchat/image/upload/v1686847613/computer-meme-2_lymwzy.jpg' />
       </Button>
       <Drawer
         isOpen={isOpen}

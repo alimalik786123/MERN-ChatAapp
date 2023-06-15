@@ -70,7 +70,7 @@ const Signup = () => {
           });
       }
     }
-    const submit=async()=>{
+    const submit=async(e)=>{
       setloading(true)
       if(!name || !email || !password || !cnfpassword || !pic){
         toast({ 
@@ -96,7 +96,16 @@ const Signup = () => {
           setloading(false)
           return
         }
+        else{
         alert("done")
+        e.preventDefault()
+        const response= await fetch("http://localhost:8080/user",{
+           method:'POST',
+           headers:{
+            'Content-Type':'application/json',
+           },
+           body:JSON.stringify({name:name,email:email,password:cnfpassword,pic:pic})
+        })
       }
     }
   return (
@@ -176,6 +185,6 @@ const Signup = () => {
         
     </VStack >
   )
-}
+}}
 
 export default Signup
