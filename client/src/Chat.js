@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
 import axios from 'axios'
 import { useEffect, } from 'react'
 import Profile from './Components/Authentication/profile'
@@ -14,9 +14,10 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
   useDisclosure
 } from '@chakra-ui/react'
 import {PhoneIcon,Search2Icon} from '@chakra-ui/icons'
-
+export const Chats=createContext();
 export const Chat = () => {
    const [chats,setchats]=useState([])
+   
     const fetchChat=async()=>{
       const data=await axios.get("/hello")
       console.log(data);
@@ -29,6 +30,7 @@ export const Chat = () => {
 
   return (
     <>
+    <Chats.Provider value={{chat:chats}}>
     <div className="left">
      <VStack>
       <div className="side">
@@ -97,7 +99,7 @@ export const Chat = () => {
       <div className='ip'>
         <div className='txtdiv'>
         <InputGroup>
-      <Input placeholder='Say hii...' >
+      <Input placeholder='Say hii...' fontSize={'xl'} >
 
         
       </Input>
@@ -115,6 +117,7 @@ export const Chat = () => {
 
       </div>
     </div>
+    </Chats.Provider>
     </>
   )
 }

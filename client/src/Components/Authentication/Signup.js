@@ -63,7 +63,7 @@ const Signup = () => {
               status: "success",
               duration: 5000,
               isClosable: true,
-              position: "bottom",
+              position: "top",
             });
           })
           .catch((error) => {
