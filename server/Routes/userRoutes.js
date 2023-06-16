@@ -46,13 +46,13 @@ router.post("/user",jsonParser, async (req, res) => {
            const user= await User.create({ 
                 name: req.body.name,       
                 email: req.body.email,
-                password:req.body.password,
+                password:req.body.password, 
                 img:req.body.pic
  
 
 
             })
-            res.status(201).json({
+            return res.status(201).json({
                 _id:user._id,
                 name:user.name,
                 email:user.email, 
@@ -65,7 +65,7 @@ router.post("/user",jsonParser, async (req, res) => {
         // console.log(try1);
     })
 router.post("/login",jsonParser,async(req,res)=>{
-    const user=await User.findOne({"email":req.body.email}) 
+    const user=await User.findOne({"email":req.body.email})      
     if(user){
         res.status(201).json({
             name:user.name,

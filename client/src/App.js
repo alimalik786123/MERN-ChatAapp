@@ -1,16 +1,30 @@
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import {Route,Switch} from 'react-router-dom'
+import { Button, ButtonGroup, ChakraProvider } from '@chakra-ui/react'
+import {Route,Routes,BrowserRouter as Router} from 'react-router-dom'
 import './App.css'
-import Home from './Home';
+import Home from './Home'; 
 import { Chat } from './Chat';
 function App() {
-  return (
+  return (<>
    <div className='App'>
-   <Switch>
-     <Route exact path='/' component={Home}/>
-     <Route path='/chat' component={Chat}/>
-   </Switch>
+    <ChakraProvider>
+    <Router>
+    <Routes>
+      <Route exact path='/' element={<Home/>}/>
+      <Route path='/chat' element={<Chat/>}/>
+
+     
+
+
+
+      
+    </Routes>
+   </Router>
+     
+     
+   
+   </ChakraProvider>
     </div>
+    </>
   );
 }
 

@@ -30,7 +30,7 @@ const Login = () => {
         return
       }
       else{
-        if(password){
+        if(!password){
           toast({
             title: "Password do not matched",
             status: "warning",
@@ -41,7 +41,16 @@ const Login = () => {
           setloading(false)
           return
         }
-        alert("done")
+        else{
+          const response= await fetch("http://localhost:8080/user",{
+           method:'POST',
+           headers:{
+            'Content-Type':'application/json',
+           },
+           body:JSON.stringify({email:email,password:password})
+        })
+        console.log(response);
+        }
       }
     }
   return (
@@ -78,7 +87,7 @@ const Login = () => {
                 </InputGroup>
           </FormControl>
           
-          <Button colorScheme='blue' w={'100%'} variant='outline'>
+          <Button colorScheme='blue' w={'100%'} variant='outline' onClick={submit}>
     Login
   </Button>
   <Button colorScheme='red' w={'100%'} variant='outline'>

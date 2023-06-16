@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack,useToast } from '@chakra-ui/react'
-import { useState } from 'react' 
+import { useState } from 'react'
+import { Link,redirect,useNavigate } from 'react-router-dom'
 import axios from "axios"
 
 const Signup = () => {
@@ -12,6 +13,7 @@ const Signup = () => {
     const [pic,setpic]=useState('')
     const [loading, setloading] = useState(false)
     const toast=useToast()
+    let redirect=useNavigate()
     const invert=()=>{
         setshow(!show)
     }
@@ -106,8 +108,14 @@ const Signup = () => {
            },
            body:JSON.stringify({name:name,email:email,password:cnfpassword,pic:pic})
         })
+        setloading(false)
+        const resp=await response.json()
+        console.log(resp);
+        window.localStorage.setItem("data",resp)
+        redirect("/chat")
+
       }
-    }
+    }}
   return (
     <VStack spacing='5px'>
         <FormControl>
@@ -185,6 +193,6 @@ const Signup = () => {
         
     </VStack >
   )
-}}
+}
 
 export default Signup
