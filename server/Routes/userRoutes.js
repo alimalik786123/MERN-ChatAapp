@@ -95,12 +95,22 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
      const curruser=req.body.curruser 
      const userid=req.body.userid
      const chat=await Chat.find({
-        GroupChat:false,
-        $and:[
-            {users:{$elemmatch:{$eq:userid}}},
-            {users:{$elemmatch:{$eq:curruser}}}
-        ]
-     }).populate("users","-password")
+        users:{$elemmatch:{$eq:curruser}}
+        // GroupChat:false,
+        // $and:[
+        //     {users:{$elemmatch:{$eq:userid}}},
+        //     {users:{$elemmatch:{$eq:curruser}}}
+        // ]
+     })
+     if(chat){
+     res.send(chat)}
+     else{
+        await Chat.create({
+            chatName:"newchat",
+            users:curruser,
+        })
+        res.send(chat)
+     }
 })
 
 router.post("/group",jsonParser,async(req,res)=>{
