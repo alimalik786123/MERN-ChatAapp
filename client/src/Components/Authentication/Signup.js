@@ -74,7 +74,7 @@ const Signup = () => {
     }
     const submit=async(e)=>{
       setloading(true)
-      if(!name || !email || !password || !cnfpassword || !pic){
+      if(!name || !email || !password || !cnfpassword ){
         toast({ 
           title: "Empty field",
           status: "warning",
@@ -99,7 +99,7 @@ const Signup = () => {
           return
         }
         else{
-        alert("done")
+        
         e.preventDefault()
         const response= await fetch("http://localhost:8080/user",{
            method:'POST',
@@ -111,7 +111,7 @@ const Signup = () => {
         setloading(false)
         const resp=await response.json()
         console.log(resp);
-        window.localStorage.setItem("data",resp)
+        window.localStorage.setItem("data",resp._id)
         redirect("/chat")
 
       }

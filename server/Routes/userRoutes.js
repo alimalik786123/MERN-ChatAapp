@@ -94,23 +94,43 @@ router.post("/search",jsonParser,async(req,res)=>{
 router.post("/fetchChat",jsonParser,async(req,res)=>{
      const curruser=req.body.curruser 
      const userid=req.body.userid
-     const chat=await Chat.find({
-        users:{$elemmatch:{$eq:curruser}}
+     const chat=await Chat.findOne({
+        
         // GroupChat:false,
-        // $and:[
-        //     {users:{$elemmatch:{$eq:userid}}},
-        //     {users:{$elemmatch:{$eq:curruser}}}
-        // ]
+        $and:[
+            {users:{$elemMatch:{$eq:userid}}},
+            {users:{$elemMatch:{$eq:curruser}}}
+        ]
      })
+     
      if(chat){
-     res.send(chat)}
-     else{
-        await Chat.create({
-            chatName:"newchat",
-            users:curruser,
-        })
-        res.send(chat)
+    //  res.send(chat)
+    res.json({message:"done"})
      }
+     else{
+        const new1=await Chat.create({
+            chatName:"newchat",
+            users:[curruser,userid]
+        })
+        res.json({message:"done"})
+     }
+})
+
+router.post('/profiledata',jsonParser,async(req,res)=>{
+    try {
+        const id=req.body.id;
+        const data1=await User.find({"_id":{$in:id}})  
+       res.send(data1)
+    } catch (error) {     
+        console.log(error); 
+    }
+})
+
+router.post("/message",jsonParser,async(req,res)=>{
+    const message=await Chat.updateOne({ $and:[
+        {users:{$elemMatch:{$eq:userid}}},
+        {users:{$elemMatch:{$eq:curruser}}}
+    ]},{$push:{message:{}}},)
 })
 
 router.post("/group",jsonParser,async(req,res)=>{

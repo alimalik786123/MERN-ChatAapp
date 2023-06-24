@@ -12,13 +12,15 @@ const chatModel=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },from:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId, 
         ref:"User"
-    }}],
+    },
     content:[{
         user:String,
         message:String
     }]
+}],
+    
     // groupAdmin:{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:"User"
