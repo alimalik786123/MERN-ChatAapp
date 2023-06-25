@@ -7,7 +7,7 @@ function Profile() {
     }
   return (
     <div>
-        <button className="user" style={{background:color1}} onClick={bgchange}>
+        <button className="user" style={{background:color1}} onClick={bgchange} >
    <Avatar width={'44px'} height='44px' margin={'3px'} marginLeft='10px' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
    <h1 className="profiletxt">hello</h1>
    </button>
