@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,  Drawer,
     DrawerBody,
     DrawerFooter,
@@ -9,12 +9,70 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
   
     useDisclosure
   } from '@chakra-ui/react'
+  import { Chat } from './Chat'
   import Profile from './Components/Authentication/profile'
-  import {PhoneIcon,Search2Icon} from '@chakra-ui/icons'
+  import {PhoneIcon,Search2Icon,CloseIcon} from '@chakra-ui/icons'
+ 
+
 
 function ContentLeft() {
+  const userid=useContext(Chat)
+  const curruser=window.localStorage.getItem("data")
+  const [prof,setprof]=useState([])
+  const[query,setquery]=useState('')
+  const[button,setbutton]=useState(true)
+  const [fun,setfun]=useState(true)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
+    const txtchange=(e)=>{
+       setquery(e.target.value)
+       console.log(query);
+    }
+    const search=async()=>{
+      if(!query){
+        alert("enter something")
+        return
+      }
+      else{
+      setbutton(false)  
+      setfun(false)
+      const searchresult= await fetch("http://localhost:8080/search",{
+        method:'POST',
+        headers:{
+         'Content-Type':'application/json',
+        },
+        body:JSON.stringify({currid:curruser,query:query})})
+        var searchdata=await searchresult.json()
+        console.log(searchdata, curruser,query);
+        setprof(searchdata)
+      }
+        
+    }
+
+    const getdata=async()=>{
+      
+      var profile=window.localStorage.getItem('profileid')
+      profile=JSON.parse(profile)
+      console.log(profile,"profile");
+      const profileuserdata= await fetch("http://localhost:8080/profileuserdata",{
+        method:'POST',
+        headers:{
+         'Content-Type':'application/json',
+        },
+        body:JSON.stringify({id:profile})})
+        const profileuserdata2=await profileuserdata.json()
+        console.log(profileuserdata2,'blah');
+        setprof(profileuserdata2)
+        setquery('')
+        setbutton(true)
+        setfun(true)
+    
+     }
+
+    useEffect(()=>{
+      getdata()
+       },[])
+    
   return (
     
         <div className="left">
@@ -36,7 +94,7 @@ function ContentLeft() {
           <DrawerHeader>Create your account</DrawerHeader>
 
           <DrawerBody>
-            <Input placeholder='Type here...' />
+            <Input placeholder='Type here...'  />
           </DrawerBody>
 
           <DrawerFooter>
@@ -53,20 +111,36 @@ function ContentLeft() {
      >
     
     <Input type='tel' placeholder='Search user'
-    
+    onChange={txtchange}
     backgroundColor={'white'}
+    value={query}
     />
     <InputRightElement>
-    <Button backgroundColor={'white'}>
-      <Search2Icon color={'black'}/>
+    <Button backgroundColor={'white'} onClick={fun?search:getdata}>
+      {button?<Search2Icon color={'black'}/>:<CloseIcon/>}
     </Button>
     </InputRightElement>
   </InputGroup>
   </div>
+
+
+
+
+
+ 
   <hr style={{width:'250px',color:'black',backgroundColor:'black'}} />
-  <Profile/>
-  <Profile/>
-   <Profile/>
+  <div className="container">
+  <VStack>
+  {prof && prof.map((data1)=>{
+    return <Profile
+    name={data1.name}
+    img={data1.img}
+    btn={data1._id}
+    data1={data1}
+    />
+  })}
+  </VStack>
+ </div>
      </VStack>
     </div>
     

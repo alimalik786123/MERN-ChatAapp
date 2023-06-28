@@ -152,4 +152,9 @@ background: linear-gradient(90deg, rgba(100,194,255,1) 0%, rgba(24,160,199,1) 48
 background: linear-gradient(90deg, rgba(0,78,129,1) 0%, rgba(5,172,221,1) 48%, rgba(105,211,255,1) 100%);
  }
 
+ .container{
+  overflow-x: hidden;
+  overflow-y: auto;
+ }
+
   

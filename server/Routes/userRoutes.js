@@ -59,38 +59,40 @@ router.post("/user",jsonParser, async (req, res) => {
                 pic:user.img,
                 token:generateToken(user._id)
             }) 
-            
+             
             // res.json({ success: true })
         
         // console.log(try1);
     })
 router.post("/login",jsonParser,async(req,res)=>{
-    const user=await User.findOne({"email":req.body.email})      
+    const user=await User.findOne({"email":req.body.email})       
     if(user){
         res.status(201).json({
+            _id:user._id,
             name:user.name,
             email:user.email, 
             pic:user.pic,
             token:generateToken(user._id)
-        }) 
+        })  
     }
     else{
         res.status(404).json({message:"user not found"})
     }
 })
 router.post("/search",jsonParser,async(req,res)=>{
-    const keyword=req.query.search?{
+    
+
+    const users=await User.find({
         $or:[
-            {name:{$regex:req.query.search,$options:"i"}},
-            {email:{$regex:req.query.search,$options:"i"}},
+            {name:{$regex:req.body.query,$options:"i"}},
+            {email:{$regex:req.body.query,$options:"i"}},
         ]
-    }:{};
-
-    const users=await User.find(keyword).find({_id:{$ne:req.body._id}})
+    }).find({_id:{$ne:req.body.currid}})
+    console.log(req.body.query);
     res.send(users)
-    console.log(keyword);
+   
 })
-
+ 
 router.post("/fetchChat",jsonParser,async(req,res)=>{
      const curruser=req.body.curruser 
      const userid=req.body.userid
@@ -108,7 +110,7 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
     res.json({message:"done"})
      }
      else{
-        const new1=await Chat.create({
+        const new1=await Chat.create({ 
             chatName:"newchat",
             users:[curruser,userid]
         })
@@ -117,6 +119,16 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
 })
 
 router.post('/profiledata',jsonParser,async(req,res)=>{
+    try {
+        const id=req.body.id;
+        const data1=await Chat.find({"users":{$elemMatch:{$eq:id}}})     
+       res.send(data1)
+    } catch (error) {     
+        console.log(error); 
+    }
+})
+
+router.post('/profileuserdata',jsonParser,async(req,res)=>{
     try {
         const id=req.body.id;
         const data1=await User.find({"_id":{$in:id}})  

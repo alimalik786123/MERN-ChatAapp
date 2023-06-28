@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack,useToast } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
     const [show,setshow]=useState(false)
    
@@ -8,15 +9,16 @@ const Login = () => {
     const [password,setpassword]=useState('')
     const [loading,setloading]=useState('')
     const toast=useToast()
-
+    let redirect=useNavigate()
     const invert=()=>{
         setshow(!show)
     }
     const invert1=()=>{
         setshow(!show)
     }
-    const submit=async()=>{
+    const submit=async(e)=>{
       setloading(true)
+      console.log(email,password);
       if(!email || !password){
         toast({ 
           title: "Please enter all the field",
@@ -30,27 +32,21 @@ const Login = () => {
         return
       }
       else{
-        if(!password){
-          toast({
-            title: "Password do not matched",
-            status: "warning",
-            duration: 5000,
-            isClosable: true,
-            position: "top",
-          });
-          setloading(false)
-          return
-        }
-        else{
-          const response= await fetch("http://localhost:8080/user",{
+        e.preventDefault()
+          const response= await fetch("http://localhost:8080/login",{
            method:'POST',
            headers:{
             'Content-Type':'application/json',
            },
            body:JSON.stringify({email:email,password:password})
         })
-        console.log(response);
-        }
+        const res=await response.json()
+        console.log(res);
+        window.localStorage.setItem("data",res._id)
+
+        redirect("/chat")
+
+        
       }
     }
   return (
