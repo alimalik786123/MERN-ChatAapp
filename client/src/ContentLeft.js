@@ -15,15 +15,30 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
  
 
 
-function ContentLeft() {
+function ContentLeft(props) {
   const userid=useContext(Chat)
   const curruser=window.localStorage.getItem("data")
   const [prof,setprof]=useState([])
   const[query,setquery]=useState('')
   const[button,setbutton]=useState(true)
+  const[clkmsg,setclkmsg]=useState('')
   const [fun,setfun]=useState(true)
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure() 
     const btnRef = React.useRef()
+    const getid=async(id)=>{
+      
+      const messagedata= await fetch("http://localhost:8080/fetchChat",{
+        method:'POST',
+        headers:{
+         'Content-Type':'application/json',
+        },
+        body:JSON.stringify({curruser:curruser,userid:id._id})})
+        const msg=await messagedata.json()
+        console.log(msg.message,"content left wala"); 
+        setclkmsg(msg)
+        props.message(msg.message,id)
+
+    }
     const txtchange=(e)=>{
        setquery(e.target.value)
        console.log(query);
@@ -79,7 +94,7 @@ function ContentLeft() {
      <VStack>
       <div className="side">
         <div className="drawer">
-        <Button ref={btnRef} colorScheme='teal' onClick={onOpen} marginTop="5px" left={'-5%'} width='30px' borderRadius='80px' >
+        <Button ref={btnRef} colorScheme='teal' onClick={onOpen} marginTop="5px" left={'-5%'} width='20px' borderRadius='80px' >
         <Avatar name='Dan Abrahmov' src='http://res.cloudinary.com/mailchat/image/upload/v1686847613/computer-meme-2_lymwzy.jpg' />
       </Button>
       <Drawer
@@ -129,18 +144,17 @@ function ContentLeft() {
 
  
   <hr style={{width:'250px',color:'black',backgroundColor:'black'}} />
-  <div className="container">
-  <VStack>
+  
   {prof && prof.map((data1)=>{
     return <Profile
     name={data1.name}
     img={data1.img}
     btn={data1._id}
     data1={data1}
+    getid={getid}
     />
   })}
-  </VStack>
- </div>
+  
      </VStack>
     </div>
     

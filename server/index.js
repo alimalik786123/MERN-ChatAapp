@@ -12,7 +12,7 @@ app.use((req,res,next)=>{
   );
   next();
 })
-// app.use(express.json)
+// app.use(express.json) 
 app.use('/',userRoutes)
 
 const server=app.listen(8080,console.log("server running")) 
@@ -24,9 +24,9 @@ const io=require('socket.io')(server,{
   })
   io.on("connection",(socket)=>{
     console.log('connected to socket.io ');
-    socket.on("chat",(payload)=>{
-        console.log("it is payload");
-        io.emit("chat",payload)
-    })
+    // socket.on("chat",(payload)=>{
+    //     console.log("it is payload");
+    //     io.emit("chat",payload)
+    // })
   })
   

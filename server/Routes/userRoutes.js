@@ -79,7 +79,7 @@ router.post("/login",jsonParser,async(req,res)=>{
         res.status(404).json({message:"user not found"})
     }
 })
-router.post("/search",jsonParser,async(req,res)=>{
+router.post("/search",jsonParser,async(req,res)=>{  
     
 
     const users=await User.find({
@@ -106,15 +106,15 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
      })
      
      if(chat){
-    //  res.send(chat)
-    res.json({message:"done"})
+    
+    res.send(chat)
      }
      else{
         const new1=await Chat.create({ 
             chatName:"newchat",
             users:[curruser,userid]
         })
-        res.json({message:"done"})
+        res.json({message:"chat created"})
      }
 })
 
@@ -140,9 +140,13 @@ router.post('/profileuserdata',jsonParser,async(req,res)=>{
 
 router.post("/message",jsonParser,async(req,res)=>{
     const message=await Chat.updateOne({ $and:[
-        {users:{$elemMatch:{$eq:userid}}},
-        {users:{$elemMatch:{$eq:curruser}}}
-    ]},{$push:{message:{}}},)
+        {users:{$elemMatch:{$eq:req.body.to}}},
+        {users:{$elemMatch:{$eq:req.body.from}}}
+    ]},{$push:{"message":{to:req.body.to,from:req.body.from,content:req.body.content}}}) 
+    console.log(req.body.content);
+    if(message){
+        res.send(message)
+    }
 })
 
 router.post("/group",jsonParser,async(req,res)=>{

@@ -3,13 +3,21 @@ import React, { createContext, useEffect, useState } from 'react'
 import ContentPage from './ContentPage'
 import ContentLeft from './ContentLeft'
 export const Chats=createContext();
+
+
 export const Chat = () => {
-   const [chats,setchats]=useState([])
+   const [data,setdata]=useState([])
    const [userid,setuserid]=useState('')
    const [profile,setprofile]=useState([])
+   const [msg,setmsg]=useState()
    const [profileuserdata1,setprofileuserdata1]=useState([])
    const curruser=window.localStorage.getItem("data")
    var constdata,profiledata
+   const message=(message,data)=>{
+     console.log(message,"from chat");
+     setmsg(message)
+     setdata(data)
+   }
     const chat=async()=>{
     //   constdata= await fetch("http://localhost:8080/fetchChat",{
     //     method:'POST',
@@ -47,8 +55,13 @@ export const Chat = () => {
     
      <ContentLeft
      profiledata={profileuserdata1}
+     message={message}
+     
      />
-     <ContentPage/>
+     <ContentPage
+     content={msg}
+     userdata={data}
+     />
     
     </Chats.Provider>
     </>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,  Drawer,
     DrawerBody,
     DrawerFooter,
@@ -9,31 +9,66 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
   
     useDisclosure
   } from '@chakra-ui/react'
-function ContentPage() {
+  import Chatright from './Chatright';
+  import Chatleft from './Chatleft';
+import { PeopleSharp } from '@mui/icons-material';
+function ContentPage(props) {
+  const[type,settype]=useState("")
+  const[msg,setmsg]=useState([])
+  const curruser=window.localStorage.getItem("data")
+  console.log(props.content,"msg ka data");
+  const data1=props.content
+  console.log(data1,"data1 hai");
+  const typing=(e)=>{
+    settype(e.target.value)
+  }
+  const handlesubmit=async(e)=>{
+    const constdata= await fetch("http://localhost:8080/message",{
+      method:'POST',
+      headers:{
+       'Content-Type':'application/json',
+      },
+      body:JSON.stringify({to:props.userdata._id,from:curruser,content:type})})
+       const profiledata=await constdata.json()
+       console.log(profiledata);
+       if(profiledata.acknowledged===true){
+        settype("")
+       }
+  }
+  
   return (
     
          <div className="right">
          <div className="profile">
-      <Avatar width={'44px'} height='44px' margin={'3px'} marginLeft='25px' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
-      <h2 className='profiletxt'>hello</h2>
+      <Avatar width={'44px'} height='44px' margin={'3px'} marginLeft='25px' name='Dan Abrahmov' src={props.userdata.img} />
+      <h2 className='profiletxt'>{props.userdata.name}</h2>
       </div>
       <div className="message">
-       <div className="content">helloosdjvjksndjkva</div>
-       <div className="content">helloosdjvjksndjkvafgnwhwthntyetmeyjmeyjmyumeymueyumdtmetmetymetmetyjetetyjetynetynnsfgnwty</div>
-       <div className="content2"><div className="content3"></div><div className="content3"><div className="con">jdbwegdvsdv my name is malik mohaama sd</div></div></div>
-       <div className="content">helloosdjvjksndjkva</div>
-      <div className="content2"><div className="content3"></div><div className="content3"><div className="con">jdbwegdvsdv my name is malik mohaama sd</div></div></div>
-      <div className="content"><i class="fa-solid fa-user"></i>helloosdjvjksndjkvafgnwhwthntyetmeyjmeyjmyumeymueyumdtmetmetymetmetyjetetyjetynetynnsfgnwty</div>
+      {data1 && data1.map((data1)=>{
+        if(curruser===data1.from){
+          return (<Chatright
+          content={data1.content}
+          />)
+          }
+        else{
+          return <Chatleft
+          content={data1.content}
+          />
+        }
+      })}
+     
+       
+      
       </div>
       <div className='ip'>
         <div className='txtdiv'>
         <InputGroup>
-      <Input placeholder='Say hii...' fontSize={'xl'} >
+      <Input placeholder='Say hii...' fontSize={'xl'}  onChange={typing} value={type}>
 
         
       </Input>
       <InputRightElement>
-      <Button margin={'2px'} ><i class="fa-solid fa-paper-plane-top"></i><i class="fa-solid fa-paper-plane"></i></Button>
+      <Button margin={'2px'} onClick={handlesubmit} >send <i class="fa-solid fa-paper-plane-top"></i><i class="fa-solid fa-paper-plane"></i></Button>
       </InputRightElement>
       </InputGroup>
       </div>
