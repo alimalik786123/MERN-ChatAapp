@@ -74,7 +74,7 @@ background-color:rgb(175, 236, 255) ;
   font-weight: 600;
 }
 .content{
- max-width: 250px;
+ max-width: 75%;
   /* background-color: rgb(9, 185, 255); */
   background: rgb(0,155,255);
   background: linear-gradient(90deg, rgba(0,155,255,1) 0%, rgba(87,217,255,1) 48%, rgba(255,165,248,1) 100%);
@@ -84,6 +84,7 @@ background-color:rgb(175, 236, 255) ;
   margin: 4px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
+ 
 }
 .content2{
   
@@ -108,12 +109,13 @@ background-color:rgb(175, 236, 255) ;
   border-style: solid;
   border-width: 0.5px;
   border-color: black;
-  left: 125%;
+  left: 75%;
   border-radius: 30px 5px 30px 30px;
   padding: 10px;
   margin: 4px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
+  margin-left: 33px;
 }
 
 .content3{
@@ -135,9 +137,9 @@ background-color:rgb(175, 236, 255) ;
   align-items: center;
   border-radius: 7px;
   /* background-color: rgb(92, 209, 255); */
-  background: rgb(100,194,255);
+  /* background: rgb(100,194,255);
 background: linear-gradient(90deg, rgba(100,194,255,1) 0%, rgba(24,160,199,1) 48%, rgba(15,185,255,1) 100%);
-  border-style: solid;
+  border-style: solid; */
   border-width: 2px;
   border-color: rgb(25, 209, 255);
 
@@ -152,6 +154,18 @@ background: linear-gradient(90deg, rgba(100,194,255,1) 0%, rgba(24,160,199,1) 48
  .user:hover{
   background: rgb(0,78,129);
 background: linear-gradient(90deg, rgba(0,78,129,1) 0%, rgba(5,172,221,1) 48%, rgba(105,211,255,1) 100%);
+ }
+ .bgimg1{
+  display: flex;
+  position: relative;
+  background-size: cover;
+  height: 102%;
+  align-items: center;
+  background-position: center;
+ }
+ .img1{
+  height: 95%;
+  margin: 20%;
  }
 
  

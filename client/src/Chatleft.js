@@ -4,7 +4,11 @@ function Chatleft(props) {
   console.log(props.content,"content of props");
   return (
     <>
-    <div className="content">{props.content}</div>
+    <div  style={{marginBottom:"20px"}}><span className="content">{props.content}</span></div>
+    
+    
+    
+    
     </>
   )
 }

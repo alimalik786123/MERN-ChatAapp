@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import bgimg from './chatpage.jpg'
+import ScrollToBottom from 'react-scroll-to-bottom';
 import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,  Drawer,
     DrawerBody,
     DrawerFooter,
@@ -39,11 +41,14 @@ function ContentPage(props) {
   return (
     
          <div className="right">
-         <div className="profile">
+          {data1===undefined ? <div className='bgimg1'><img className='img1' src={bgimg} alt="" /></div>:
+          <>
+           <div className="profile">
       <Avatar width={'44px'} height='44px' margin={'3px'} marginLeft='25px' name='Dan Abrahmov' src={props.userdata.img} />
       <h2 className='profiletxt'>{props.userdata.name}</h2>
       </div>
       <div className="message">
+      
       {data1 && data1.map((data1)=>{
         if(curruser===data1.from){
           return (<Chatright
@@ -63,12 +68,12 @@ function ContentPage(props) {
       <div className='ip'>
         <div className='txtdiv'>
         <InputGroup>
-      <Input placeholder='Say hii...' fontSize={'xl'}  onChange={typing} value={type}>
+      <Input placeholder='Say hii...' fontSize={'xl'}  onChange={typing} value={type} >
 
         
       </Input>
       <InputRightElement>
-      <Button margin={'2px'} onClick={handlesubmit} >send <i class="fa-solid fa-paper-plane-top"></i><i class="fa-solid fa-paper-plane"></i></Button>
+      <Button margin={'2px'} onClick={handlesubmit} onKeyDown={handlesubmit} >send <i class="fa-solid fa-paper-plane-top"></i><i class="fa-solid fa-paper-plane"></i></Button>
       </InputRightElement>
       </InputGroup>
       </div>
@@ -80,6 +85,9 @@ function ContentPage(props) {
       ><i class="fa-solid fa-file"></i></Button>
 
       </div>
+          </>
+          }
+        
     </div>
   )
 }
