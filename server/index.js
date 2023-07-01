@@ -22,11 +22,12 @@ const io=require('socket.io')(server,{
       origin:"http://localhost:3000"
     },
   })
-  io.on("connection",(socket)=>{
-    console.log('connected to socket.io ');
-    // socket.on("chat",(payload)=>{
-    //     console.log("it is payload");
-    //     io.emit("chat",payload)
-    // })
+  io.on("connect",(socket)=>{
+    console.log('connected to socket.io1111 ');
+    socket.on("chat",(user)=>{
+        console.log("it is payload",user);
+        
+    })
+    socket.emit("data",global.data)
   })
   

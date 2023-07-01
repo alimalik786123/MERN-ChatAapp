@@ -7,9 +7,9 @@ import { Chat } from './Chat';
 
 const socket=socketIO('http://localhost:8080',{transports:['websocket']})
 function App() {
-  socket.on('connect',()=>{
-    console.log('connected hellosjdvnjsdnvjsd');
-  })
+  // socket.on('connect',()=>{
+  //   console.log('connected hellosjdvnjsdnvjsd');
+  // })
   return (<>
    <div className='App'>
     <ChakraProvider>

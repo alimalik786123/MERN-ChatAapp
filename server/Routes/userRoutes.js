@@ -114,7 +114,7 @@ router.post("/fetchChat",jsonParser,async(req,res)=>{
             chatName:"newchat",
             users:[curruser,userid]
         })
-        res.json({message:"chat created"})
+        res.json([])
      }
 })
 
@@ -145,6 +145,7 @@ router.post("/message",jsonParser,async(req,res)=>{
     ]},{$push:{"message":{to:req.body.to,from:req.body.from,content:req.body.content}}}) 
     console.log(req.body.content);
     if(message){
+        global.data=message
         res.send(message)
     }
 })

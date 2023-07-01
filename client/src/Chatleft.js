@@ -1,11 +1,13 @@
 import React from 'react'
+import 'animate.css'
 
 function Chatleft(props) {
   console.log(props.content,"content of props");
   return (
     <>
-    <div  style={{marginBottom:"20px"}}><span className="content">{props.content}</span></div>
-    
+    {/* <div  style={{marginBottom:"20px"}}><span className="content clear">{props.content}</span></div> */}
+    <div className="message1 left1 content animate__slideInUp">{props.content}</div>
+
     
     
     
