@@ -34,14 +34,14 @@ function ContentLeft(props) {
         },
         body:JSON.stringify({curruser:curruser,userid:id._id})})
         const msg=await messagedata.json()
-        console.log(msg.message,"content left wala"); 
+        window.localStorage.setItem("chatid",msg._id)
         setclkmsg(msg)
-        props.message(msg.message,id)
+        props.message(msg,id)
 
     }
     const txtchange=(e)=>{
        setquery(e.target.value)
-       console.log(query);
+       
     }
     const search=async()=>{
       if(!query){
@@ -68,7 +68,6 @@ function ContentLeft(props) {
       
       var profile=window.localStorage.getItem('profileid')
       profile=JSON.parse(profile)
-      console.log(profile,"profile");
       const profileuserdata= await fetch("http://localhost:8080/profileuserdata",{
         method:'POST',
         headers:{
@@ -76,9 +75,8 @@ function ContentLeft(props) {
         },
         body:JSON.stringify({id:profile})})
         const profileuserdata2=await profileuserdata.json()
-        console.log(profileuserdata2,'blah');
         setprof(profileuserdata2)
-        setquery('')
+        // setquery('')
         setbutton(true)
         setfun(true)
     

@@ -2,7 +2,7 @@ import React from 'react'
 import 'animate.css'
 
 function Chatleft(props) {
-  console.log(props.content,"content of props");
+  
   return (
     <>
     {/* <div  style={{marginBottom:"20px"}}><span className="content clear">{props.content}</span></div> */}

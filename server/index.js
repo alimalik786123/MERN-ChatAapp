@@ -22,12 +22,44 @@ const io=require('socket.io')(server,{
       origin:"http://localhost:3000"
     },
   })
-  io.on("connect",(socket)=>{
-    console.log('connected to socket.io1111 ');
-    socket.on("chat",(user)=>{
-        console.log("it is payload",user);
-        
+  io.on("connection",(socket)=>{
+    socket.on("setup",(user)=>{
+        socket.join(user)
+        socket.emit('connected')
     })
-    socket.emit("data",global.data)
+    
+    socket.on("join chat",(msg)=>{
+      socket.join(msg)
+      console.log(msg,'user joined room');
+      
+  })
+    
+  socket.on("newmessage",(data1)=>{   
+
+    
+    
+      socket.in(data1.userid).emit("message recieved",{msg:data1.msg,userid:data1.userid,chatid:data1.data._id})
+      console.log(data1,'hellouser');
+      console.log('sent to this userid',data1.userid)
+    
+
+  })
+
+    socket.on("typing",(data)=>{  
+
+      socket.in(data.chatid).emit('typing',data.chatid)
+      
+
+    })
+
+    socket.on("notyping",(data)=>{
+      socket.in(data.msg).emit('notyping')
+    })
+
+    socket.on("notyping",(id)=>{
+      console.log(id);
+    })
+
+
   })
   
