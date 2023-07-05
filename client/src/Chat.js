@@ -2,10 +2,21 @@
 import React, { createContext, useEffect, useState } from 'react'
 import ContentPage from './ContentPage'
 import ContentLeft from './ContentLeft'
+import { useNavigate } from 'react-router-dom';
 export const Chats=createContext();
 
 
 export const Chat = () => {
+  const redirect=useNavigate()
+  useEffect(()=>{
+    const check=localStorage.getItem('signin') 
+    const userdata=localStorage.getItem('userdata') 
+
+    if(!userdata && !check){
+     redirect('/')
+    }
+  })
+  
    const [data,setdata]=useState([])
    const [userid,setuserid]=useState('')
    const [profile,setprofile]=useState([])
@@ -13,6 +24,8 @@ export const Chat = () => {
    const [profileuserdata1,setprofileuserdata1]=useState([])
    const curruser=window.localStorage.getItem("data")
    var constdata,profiledata
+   const userdata=window.localStorage.getItem('userdata')
+   const userdata1=JSON.parse(userdata)
    const message=(message,data)=>{
      console.log(message,"from chat");
      setmsg(message)
@@ -45,7 +58,12 @@ export const Chat = () => {
     }
     
     useEffect(()=>{
-   chat()
+     const check=window.localStorage.getItem('signin') 
+     if(!check){
+      redirect('/')
+     }
+     else{
+   chat()}
     },[])
   
 
@@ -56,6 +74,7 @@ export const Chat = () => {
      <ContentLeft
      profiledata={profileuserdata1}
      message={message}
+     userdata={userdata1}
      
      />
      <ContentPage

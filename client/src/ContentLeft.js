@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,  Drawer,
+import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,Text,  Drawer,
     DrawerBody,
     DrawerFooter,
     DrawerHeader,
@@ -12,10 +12,13 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
   import { Chat } from './Chat'
   import Profile from './Components/Authentication/profile'
   import {PhoneIcon,Search2Icon,CloseIcon} from '@chakra-ui/icons'
- 
+import { useNavigate } from 'react-router-dom'
+ let userdata,userdata1
 
 
 function ContentLeft(props) {
+ 
+  
   const userid=useContext(Chat)
   const curruser=window.localStorage.getItem("data")
   const [prof,setprof]=useState([])
@@ -23,8 +26,39 @@ function ContentLeft(props) {
   const[button,setbutton]=useState(true)
   const[clkmsg,setclkmsg]=useState('')
   const [fun,setfun]=useState(true)
+  const[user,setuser]=useState({pic:'',name:'',email:''})
     const { isOpen, onOpen, onClose } = useDisclosure() 
     const btnRef = React.useRef()
+    const redirect=useNavigate()
+    const logout=()=>{
+      window.localStorage.removeItem('selectedid')
+      window.localStorage.removeItem('userdata')
+      window.localStorage.removeItem('data')
+      window.localStorage.removeItem('signin')
+      redirect('/')
+
+
+    }
+
+    useEffect(()=>{
+      const check=localStorage.getItem('signin') 
+      if(!check){
+       redirect('/')
+      }},[])
+
+
+      const Userdata=async()=>{
+        const userdata= await fetch("http://localhost:8080/userdata",{
+          method:'POST',
+          headers:{
+           'Content-Type':'application/json',
+          },
+          body:JSON.stringify({curruser:curruser})})
+          const msg=await userdata.json()
+          setuser(msg)
+      }
+
+      useEffect(()=>{Userdata()},localStorage.getItem('data'))
     const getid=async(id)=>{
       
       const messagedata= await fetch("http://localhost:8080/fetchChat",{
@@ -84,8 +118,9 @@ function ContentLeft(props) {
 
     useEffect(()=>{
       getdata()
+      
        },[])
-    
+       console.log(user,'user ka data')
   return (
     
         <div className="left">
@@ -93,7 +128,7 @@ function ContentLeft(props) {
       <div className="side">
         <div className="drawer">
         <Button ref={btnRef} colorScheme='teal' onClick={onOpen} marginTop="5px" left={'-5%'} width='20px' borderRadius='80px' >
-        <Avatar name='Dan Abrahmov' src='http://res.cloudinary.com/mailchat/image/upload/v1686847613/computer-meme-2_lymwzy.jpg' />
+       <Avatar name='Dan Abrahmov' src={user.pic} />
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -102,19 +137,24 @@ function ContentLeft(props) {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent alignContent={'center'}>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Profile : </DrawerHeader>
+          <Avatar width={'50%'} height='25%' marginLeft={'80px'} border={'2px'} alignItems={'center'} name='Dan Abrahmov' src={user.pic} />
 
           <DrawerBody>
-            <Input placeholder='Type here...'  />
+            <hr />
+            <br />
+            <Text fontSize={'2xl'}>NAME : {user.name}</Text>
+            <Text fontSize={'2xl'}>EMAIL : {user.email}</Text>
+
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
+            <Button colorScheme='red' onClick={logout}>LOGOUT</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

@@ -41,9 +41,12 @@ const Login = () => {
            body:JSON.stringify({email:email,password:password})
         })
         const res=await response.json()
-        console.log(res);
+        const userdata=JSON.stringify(res)
+        console.log(res,'login data');
         window.localStorage.setItem("data",res._id)
-
+        window.localStorage.setItem("signin",res._id)
+        window.localStorage.setItem('userdata',userdata)
+ 
         redirect("/chat")
 
         

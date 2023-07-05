@@ -10,7 +10,7 @@ const Signup = () => {
     const [email,setemail]=useState('')
     const [password,setpassword]=useState('')
     const [cnfpassword,setcnfpassword]=useState('')
-    const [pic,setpic]=useState('')
+    const [pic,setpic]=useState("https://cdn141.picsart.com/357697367045201.jpg")
     const [loading, setloading] = useState(false)
     const toast=useToast()
     let redirect=useNavigate()
@@ -112,6 +112,7 @@ const Signup = () => {
         const resp=await response.json()
         console.log(resp);
         window.localStorage.setItem("data",resp._id)
+        window.localStorage.setItem("signin",resp._id)
         redirect("/chat")
 
       }

@@ -67,11 +67,11 @@ router.post("/user",jsonParser, async (req, res) => {
 router.post("/login",jsonParser,async(req,res)=>{
     const user=await User.findOne({"email":req.body.email})       
     if(user){
-        res.status(201).json({
-            _id:user._id,
-            name:user.name,
+        res.send({
+            _id:user._id,  
+            name:user.name, 
             email:user.email, 
-            pic:user.pic,
+            pic:user.img,
             token:generateToken(user._id)
         })  
     }
@@ -79,6 +79,24 @@ router.post("/login",jsonParser,async(req,res)=>{
         res.status(404).json({message:"user not found"})
     }
 })
+
+router.post("/userdata",jsonParser,async(req,res)=>{
+    const user=await User.findOne({"_id":req.body.curruser})  
+         
+     if(user){   
+        res.send({
+            _id:user._id, 
+            name:user.name,
+            email:user.email, 
+            pic:user.img,
+            token:generateToken(user._id)
+        })  
+    }
+    else{
+        res.status(404).json({message:"user not found"})
+    }
+})
+
 router.post("/search",jsonParser,async(req,res)=>{  
     
 
@@ -139,7 +157,7 @@ router.post('/profileuserdata',jsonParser,async(req,res)=>{
 })
 
 router.post("/message",jsonParser,async(req,res)=>{
-    const message=await Chat.updateOne({ $and:[
+    const message=await Chat.updateOne({ $and:[ 
         {users:{$elemMatch:{$eq:req.body.to}}},
         {users:{$elemMatch:{$eq:req.body.from}}}
     ]},{$push:{"message":{to:req.body.to,from:req.body.from,content:req.body.content}}}) 

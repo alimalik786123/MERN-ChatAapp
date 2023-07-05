@@ -146,8 +146,9 @@ background: linear-gradient(90deg, rgba(100,194,255,1) 0%, rgba(24,160,199,1) 48
 
  }
  .txtdiv{
+  display: flex;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
   border-color: black; 
   border-radius: 10px;
   width: 100%;
@@ -192,4 +193,20 @@ background: linear-gradient(90deg, rgba(0,78,129,1) 0%, rgba(5,172,221,1) 48%, r
   text-align: left;
 }
 
+.typing{
+  max-width: 17%;
+   /* background-color: rgb(9, 185, 255); */
+   background-color: rgb(255, 255, 255);
+   text-decoration: solid;
+   border-radius: 5px 30px 30px;
+   padding: 10px;
+   margin: 4px;
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: larger;
+  
+ }
+
+ .textbutton{
+  width: 65px;
+ }
  

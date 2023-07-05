@@ -10,7 +10,7 @@ function Profile(props) {
     const [message,setmessage]=useState([])
     const curruser=window.localStorage.getItem("data")
     const messagedata=async(e)=>{
-      const data=props.data1
+      const data=props.data1 
 
       console.log(data._id,"clicked");
      props.getid(data)

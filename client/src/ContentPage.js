@@ -3,6 +3,9 @@ import bgimg from './chatpage.jpg'
 import ScrollToBottom from 'react-scroll-to-bottom';
 import socketIO from 'socket.io-client'
 import 'animate.css'
+import { MdSend } from "react-icons/md";
+import { IoMdSend } from "react-icons/io";
+import EmojiPicker from 'emoji-picker-react';
 import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement,  Drawer,
     DrawerBody,
     DrawerFooter,
@@ -11,12 +14,14 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
     DrawerContent,
     DrawerCloseButton,
   
-    useDisclosure
+    useDisclosure,
+    FormControl
   } from '@chakra-ui/react'
   import Chatright from './Chatright';
   import Chatleft from './Chatleft';
 import { PeopleSharp } from '@mui/icons-material';
 import { useEffect } from 'react';
+import Typinganim from './Components/Authentication/Typinganim';
 let msg
 let socket=socketIO('http://localhost:8080')
 
@@ -41,7 +46,7 @@ function ContentPage(props) {
       
     }
     let lastTypingtime=new Date().getTime()
-    var timerlen=2000
+    var timerlen=3000
     setTimeout(()=>{
       var timenow=new Date().getTime()
       var timediff=timenow-lastTypingtime
@@ -55,7 +60,8 @@ function ContentPage(props) {
 
   }
   const handlesubmit=async(e)=>{
-    socket.emit('notyping',{msg:msg._id})
+    if(e.key==='Enter' && type)
+    {socket.emit('notyping',{msg:msg._id})
     settyping(false)
     console.log('typing is false now after submit',typing1);
     const constdata= await fetch("http://localhost:8080/message",{
@@ -72,8 +78,34 @@ function ContentPage(props) {
        const data={to:props.userdata._id,from:curruser,content:type}
         setmsg([...msg1,data])
         socket.emit('newmessage',{data:data1,msg:{to:props.userdata._id,from:curruser,content:type},userid:window.localStorage.getItem('selectedid')})
-       }
+       }}
   }
+
+
+  const handlesubmit1=async(e)=>{
+    if(type)
+    {socket.emit('notyping',{msg:msg._id})
+    settyping(false)
+    console.log('typing is false now after submit',typing1);
+    const constdata= await fetch("http://localhost:8080/message",{
+      method:'POST',
+      headers:{
+       'Content-Type':'application/json',
+      },
+      body:JSON.stringify({to:props.userdata._id,from:curruser,content:type})})
+       const profiledata=await constdata.json()
+       if(profiledata.acknowledged===true){
+        socket.emit('chat',window.localStorage.getItem('selectedid'))
+        
+        settype("")
+       const data={to:props.userdata._id,from:curruser,content:type}
+        setmsg([...msg1,data])
+        socket.emit('newmessage',{data:data1,msg:{to:props.userdata._id,from:curruser,content:type},userid:window.localStorage.getItem('selectedid')})
+       }}
+  }
+
+
+
   const check=async()=>{
     
 
@@ -164,7 +196,7 @@ function ContentPage(props) {
           />
         }
       })}
-     {istyping1?<><div><h1><Chatleft content='typing...'/></h1></div></>:<></>}
+     {istyping1?<><div><h1><Typinganim/> </h1></div></>:<></>}
        
       
       </ScrollToBottom>
@@ -172,23 +204,30 @@ function ContentPage(props) {
       <div className='ip'>
       
         <div className='txtdiv'>
-          
+          <FormControl onKeyDown={handlesubmit}>
         <InputGroup>
+        <InputLeftElement>
+        <button onClick={()=>{<EmojiPicker/>}}>
+        <i class="fa-solid fa-face-laugh-beam"></i></button>
+        </InputLeftElement>
       <Input placeholder='Say hii...' fontSize={'xl'}  onChange={typing} value={type} >
 
         
       </Input>
       <InputRightElement>
-      <Button margin={'2px'} onClick={handlesubmit} onKeyDown={handlesubmit} >send <i class="fa-solid fa-paper-plane-top"></i><i class="fa-solid fa-paper-plane"></i></Button>
+      {/* <Button margin={'2px'} width='30px' onClick={handlesubmit1} className='textbutton' onKeyDown={handlesubmit} ><MdSend/></Button> */}
       </InputRightElement>
       </InputGroup>
+      </FormControl>
+      <Button margin={'2px'} width='80px' onClick={handlesubmit1} className='textbutton' onKeyDown={handlesubmit} ><MdSend/></Button>
+
       </div>
       <Button
       marginLeft={'10px'}
       ><i class="fa-solid fa-image"></i></Button>
-      <Button
+      {/* <Button
       marginLeft={'10px'}
-      ><i class="fa-solid fa-file"></i></Button>
+      ><i class="fa-solid fa-file"></i></Button> */}
 
       </div>
           </>
