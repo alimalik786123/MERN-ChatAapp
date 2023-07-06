@@ -19,7 +19,7 @@ const server=app.listen(8080,console.log("server running"))
 const io=require('socket.io')(server,{
     pingTimeout:600000,
     cors:{
-      origin:"http://localhost:3000"
+      origin:"https://mern-chat-aapp.vercel.app"
     },
   })
   io.on("connection",(socket)=>{
