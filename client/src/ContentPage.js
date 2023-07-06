@@ -19,7 +19,7 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
   } from '@chakra-ui/react'
   import Chatright from './Chatright';
   import Chatleft from './Chatleft';
-import { PeopleSharp } from '@mui/icons-material';
+
 import { useEffect } from 'react';
 import Typinganim from './Components/Authentication/Typinganim';
 let msg
