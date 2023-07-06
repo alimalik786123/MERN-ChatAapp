@@ -48,7 +48,7 @@ function ContentLeft(props) {
 
 
       const Userdata=async()=>{
-        const userdata= await fetch("http://localhost:8080/userdata",{
+        const userdata= await fetch("https://mern-chat-app-server-nine.vercel.app/userdata",{
           method:'POST',
           headers:{
            'Content-Type':'application/json',
@@ -61,7 +61,7 @@ function ContentLeft(props) {
       useEffect(()=>{Userdata()},localStorage.getItem('data'))
     const getid=async(id)=>{
       
-      const messagedata= await fetch("http://localhost:8080/fetchChat",{
+      const messagedata= await fetch("https://mern-chat-app-server-nine.vercel.app/fetchChat",{
         method:'POST',
         headers:{
          'Content-Type':'application/json',
@@ -85,7 +85,7 @@ function ContentLeft(props) {
       else{
       setbutton(false)  
       setfun(false)
-      const searchresult= await fetch("http://localhost:8080/search",{
+      const searchresult= await fetch("https://mern-chat-app-server-nine.vercel.app/search",{
         method:'POST',
         headers:{
          'Content-Type':'application/json',
@@ -102,7 +102,7 @@ function ContentLeft(props) {
       
       var profile=window.localStorage.getItem('profileid')
       profile=JSON.parse(profile)
-      const profileuserdata= await fetch("http://localhost:8080/profileuserdata",{
+      const profileuserdata= await fetch("https://mern-chat-app-server-nine.vercel.app/profileuserdata",{
         method:'POST',
         headers:{
          'Content-Type':'application/json',

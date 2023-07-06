@@ -23,7 +23,7 @@ import {VStack,Input,Button,Avatar,InputGroup,InputLeftElement,InputRightElement
 import { useEffect } from 'react';
 import Typinganim from './Components/Authentication/Typinganim';
 let msg
-let socket=socketIO('https://chitchat-w545.onrender.com')
+let socket=socketIO('https://mern-chat-app-server-nine.vercel.app')
 
 function ContentPage(props) {
   const[type,settype]=useState("")
@@ -64,7 +64,7 @@ function ContentPage(props) {
     {socket.emit('notyping',{msg:msg._id})
     settyping(false)
     console.log('typing is false now after submit',typing1);
-    const constdata= await fetch("https://chitchat-w545.onrender.com/message",{
+    const constdata= await fetch("https://mern-chat-app-server-nine.vercel.app/message",{
       method:'POST',
       headers:{
        'Content-Type':'application/json',
@@ -87,7 +87,7 @@ function ContentPage(props) {
     {socket.emit('notyping',{msg:msg._id})
     settyping(false)
     console.log('typing is false now after submit',typing1);
-    const constdata= await fetch("https://chitchat-w545.onrender.com/message",{
+    const constdata= await fetch("https://mern-chat-app-server-nine.vercel.app/message",{
       method:'POST',
       headers:{
        'Content-Type':'application/json',
@@ -114,7 +114,7 @@ function ContentPage(props) {
     })
     const curruser=window.localStorage.getItem('data')
     const id=window.localStorage.getItem('selectedid')
-    const messagedata= await fetch("https://chitchat-w545.onrender.com/fetchChat",{
+    const messagedata= await fetch("https://mern-chat-app-server-nine.vercel.app/fetchChat",{
       method:'POST',
       headers:{
        'Content-Type':'application/json',
