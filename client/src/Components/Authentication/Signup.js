@@ -101,7 +101,7 @@ const Signup = () => {
         else{
         
         e.preventDefault()
-        const response= await fetch("http://localhost:8080/user",{
+        const response= await fetch("https://chitchat-w545.onrender.com/user",{
            method:'POST',
            headers:{
             'Content-Type':'application/json',
